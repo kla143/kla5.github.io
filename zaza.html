@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <style>
+        /* ตั้งค่าสำหรับ body ให้ใช้ Flexbox */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* กำหนดขนาดและจัดตำแหน่งของ To-do List */
+        .todo-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 70%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-left: 5px;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        /* สไตล์ปุ่ม Complete */
+        .complete-btn {
+            background-color: #4CAF50; /* สีเขียว */
+            color: white;
+        }
+
+        /* สไตล์ปุ่ม Delete */
+        .delete-btn {
+            background-color: #f44336; /* สีแดง */
+            color: white;
+        }
+
+        /* สไตล์รายการที่ทำเสร็จ */
+        .completed {
+            text-decoration: line-through;
+            color: rgb(202, 7, 17);
+        }
+
+        /* สไตล์สำหรับปุ่มเมื่อ hover */
+        button:hover {
+            opacity: 0.8;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h1>To-do List</h1>
+        <input type="text" id="todo-input" placeholder="เพิ่มรายการ...">
+        <button onclick="addTodo()">Add</button>
+        <ul id="todo-list"></ul>
+    </div>
+
+    <script>
+        function addTodo() {
+            const input = document.getElementById('todo-input');
+            const todoText = input.value.trim();
+
+            if (todoText !== "") {
+                const li = document.createElement('li');
+                const completeBtn = document.createElement('button');
+                const deleteBtn = document.createElement('button');
+
+                completeBtn.textContent = 'Complete';
+                completeBtn.classList.add('complete-btn');
+                completeBtn.onclick = function() {
+                    li.classList.toggle('completed');
+                };
+
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.onclick = function() {
+                    li.remove();
+                };
+
+                li.textContent = todoText;
+                li.appendChild(completeBtn);
+                li.appendChild(deleteBtn);
+
+                document.getElementById('todo-list').appendChild(li);
+                input.value = ''; // ล้างค่าในช่อง input หลังจากเพิ่มรายการแล้ว
+            }
+        }
+    </script>
+</body>
+</html>
